@@ -39,6 +39,42 @@ namespace CrudTarefas.Repositories
             return null;
         }
 
+        public bool Editar(int id, string novoTitulo, string novaDescricao)
+        {
+            Tarefa tarefa = BuscarPorId(id);
 
+            if (tarefa == null)
+                return false;
+
+            if (!string.IsNullOrWhiteSpace(novoTitulo))
+                tarefa.Titulo = novoTitulo;
+
+            if (!string.IsNullOrWhiteSpace(novaDescricao))
+                tarefa.Descricao = novaDescricao;
+
+            return true;
+        }
+
+        public bool Deletar(int id)
+        {
+            Tarefa tarefa = BuscarPorId(id);
+
+            if (tarefa == null)
+                return false;
+
+            tarefas.Remove(tarefa);
+            return true;
+        }
+
+        public bool MarcarConcluida(int id)
+        {
+            Tarefa tarefa = BuscarPorId(id);
+
+            if (tarefa == null || tarefa.Concluida)
+                return false;
+
+            tarefa.Concluida = true;
+            return true;
+        }
     }
 }
